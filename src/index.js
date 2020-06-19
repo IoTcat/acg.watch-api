@@ -57,7 +57,7 @@ var video = {
         danmakuID: '40404040',
         'class': 'extra'
     },
-    getAll: () => JSON.parse(fs.readFileSync(__dirname+'/../cache/video.json')),
+    getAll: () => JSON.parse(fs.readFileSync('mnt/cache/video/video.json')),
     getClassBySeries: series => new Promise((resolve, reject) => {
         Object.keys(video.obj).forEach(item => {
             if(video.obj[item].hasOwnProperty(series)){
@@ -109,5 +109,5 @@ var video = {
 
 /* watch video.json cache */
 video.reload();
-fs.watch(__dirname+'/../cache/', event => video.reload());
+fs.watch('/mnt/cache/video/', event => video.reload());
 
