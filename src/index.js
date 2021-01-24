@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const md5 = require('md5');
 var app = express();
 
 app.listen(30080, function () {
@@ -32,6 +33,8 @@ app.get('/api/getVideoByUrl', async (req, res) => {
     .catch(err => {
         var tmp = {};
         Object.assign(tmp, video.unknownObj);
+        tmp.url = req.query.url;
+        tmp.danmakuID =  md5(req.query.url).substring(0, 8); //String(parseInt(Math.random()*(90000000-50000000+1)+50000000,10));
         res.send(tmp);
     });
 });
@@ -52,7 +55,7 @@ var video = {
     unknownObj: {
         name: 'unknown',
         season: 'unknown',
-        url: 'https://api.yimian.xyz/video?path=404.pm4',
+        url: 'https://cdn.yimian.xyz/video/404.mp4',
         description: 'unknown',
         danmakuID: '40404040',
         'class': 'extra'
